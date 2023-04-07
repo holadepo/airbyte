@@ -22,7 +22,7 @@ on:
         required: false
   push:
     branches:
-      - master
+      - ella-test
   pull_request:
 
 permissions: write-all
@@ -313,21 +313,21 @@ jobs:
       - name: Format
         uses: Wandalen/wretry.action@master
         with:
-          command: SUB_BUILD=CONNECTORS_BASE ./gradlew format --scan --info --stacktrace
+          command: ./gradlew format --scan --info --stacktrace
           attempt_limit: 3
           attempt_delay: 5000 # in ms
 
       - name: Build
         uses: Wandalen/wretry.action@master
         with:
-          command: SUB_BUILD=CONNECTORS_BASE ./gradlew build --scan
+          command: ./gradlew build --scan
           attempt_limit: 3
           attempt_delay: 5000 # in ms
 
       - name: Process Resources
         uses: Wandalen/wretry.action@master
         with:
-          command: SUB_BUILD=CONNECTORS_BASE ./gradlew :airbyte-config-oss:init-oss:processResources --scan
+          command: ./gradlew :airbyte-config-oss:init-oss:processResources --scan
           attempt_limit: 3
           attempt_delay: 5000 # in ms
 
